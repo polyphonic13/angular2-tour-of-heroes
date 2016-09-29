@@ -28,9 +28,10 @@ import { HeroSearchComponent } from './hero-search.component';
     routedComponents
   ],
   providers: [
-    HeroService,
-    { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
-    { provide: SEED_DATA, useClass: InMemoryDataService }     // in-mem server data
+    // HeroService,
+    // { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
+    // { provide: SEED_DATA, useClass: InMemoryDataService }     // in-mem server data
+    HeroService
   ],
   bootstrap: [AppComponent]
 })

@@ -21,6 +21,7 @@ export class HeroesComponent implements OnInit {
     private heroService: HeroService) { }
 
   getHeroes(): void {
+    console.log('HeroComponent/getHeroes');
     this.heroService
       .getHeroes()
       .then(heroes => this.heroes = heroes)

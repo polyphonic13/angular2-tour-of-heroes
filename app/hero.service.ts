@@ -7,13 +7,17 @@ import { Hero } from './hero';
 
 @Injectable()
 export class HeroService {
-  private heroesUrl = 'app/heroes';  // URL to web api
+  // private heroesUrl = 'app/heroes';  // URL to web api
+  private heroesUrl = 'http://localhost:8997/api/heroes';
+  public static API_URL = 'http://localhost:8997/api/heroes';
 
   constructor(private http: Http) { }
 
   getHeroes(): Promise<Hero[]> {
+    console.log('HeroService/getHeroes, url = ' + HeroService.API_URL);
+    var url = HeroService.API_URL + '?sort_by=id:1';
     return this.http
-      .get(this.heroesUrl)
+      .get(url)
       .toPromise()
       .then(response => response.json().data as Hero[])
       .catch(this.handleError);
@@ -35,7 +39,7 @@ export class HeroService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    let url = `${this.heroesUrl}/${hero.id}`;
+    let url = `${HeroService.API_URL}/${hero.id}`;
 
     return this.http
       .delete(url, { headers: headers })
@@ -50,7 +54,7 @@ export class HeroService {
     });
 
     return this.http
-      .post(this.heroesUrl, JSON.stringify(hero), { headers: headers })
+      .post(HeroService.API_URL, JSON.stringify(hero), { headers: headers })
       .toPromise()
       .then(res => res.json().data)
       .catch(this.handleError);
@@ -61,7 +65,7 @@ export class HeroService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    let url = `${this.heroesUrl}/${hero.id}`;
+    let url = `${HeroService.API_URL}/${hero.id}`;
 
     return this.http
       .put(url, JSON.stringify(hero), { headers: headers })
